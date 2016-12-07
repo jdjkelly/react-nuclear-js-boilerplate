@@ -1,4 +1,6 @@
-import reactor from './reactor'
+// @flow
+
+import reactor from 'reactor'
 
 import actions from './actionTypes'
 

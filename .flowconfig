@@ -1,0 +1,11 @@
+[ignore]
+
+[include]
+
+[libs]
+
+[options]
+module.name_mapper='reactor' -> '<PROJECT_ROOT>/src/reactor'
+module.name_mapper='^components\/\(.*\)' -> '<PROJECT_ROOT>/src/components/\1'
+module.name_mapper='^modules\/\(.*\)' -> '<PROJECT_ROOT>/src/modules/\1'
+module.name_mapper='^stores\/\(.*\)' -> '<PROJECT_ROOT>/src/stores/\1'

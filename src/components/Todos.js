@@ -1,6 +1,8 @@
+// @flow
+
 import React from 'react'
-import getters from '../getters'
-import actions from '../actions'
+import getters from 'modules/todos/getters'
+import actions from 'modules/todos/actions'
 import { connect } from 'nuclear-js-react-addons'
 
 class Todos extends React.Component {

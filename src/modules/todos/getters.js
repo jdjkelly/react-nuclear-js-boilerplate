@@ -1,3 +1,5 @@
+// @flow
+
 const todos = ['todos']
 
 const done = [

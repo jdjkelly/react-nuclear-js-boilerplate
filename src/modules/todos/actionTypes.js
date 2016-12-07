@@ -1,3 +1,5 @@
+// @flow
+
 export default {
     ADD_TODO: 'ADD_TODO',
     DO_TODO: 'DO_TODO',

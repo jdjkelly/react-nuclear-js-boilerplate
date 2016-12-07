@@ -1,5 +1,7 @@
+// @flow
+
 import { Store, toImmutable } from 'nuclear-js'
-import { ADD_TODO, DELETE_TODO, DO_TODO, UNDO_TODO } from './actionTypes'
+import { ADD_TODO, DELETE_TODO, DO_TODO, UNDO_TODO } from 'modules/todos/actionTypes'
 
 export default Store({
     getInitialState() {
@@ -11,7 +13,7 @@ export default Store({
         ])
     },
 
-    initialize() {
+    initialize(): void {
         this.on(ADD_TODO, addTodo)
         this.on(DELETE_TODO, removeTodo)
         this.on(DO_TODO, doTodo)

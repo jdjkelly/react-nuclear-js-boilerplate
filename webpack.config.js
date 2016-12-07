@@ -26,5 +26,13 @@ module.exports = {
                 }
             }
         ]
+    },
+
+    // @TODO webpack 2.0 path resolver config changes
+    resolve: {
+        root: [
+            path.resolve('./src')
+        ]
     }
+
 }

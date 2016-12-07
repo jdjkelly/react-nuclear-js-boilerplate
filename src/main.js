@@ -1,9 +1,11 @@
+// @flow
+
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import App from './components/App.js'
-import reactor from './reactor.js'
-import TodoStore from './TodoStore.js'
+import App from 'components/App'
+import reactor from 'reactor'
+import TodoStore from 'stores/TodoStore'
 
 reactor.registerStores({
     'todos': TodoStore
