@@ -1,0 +1,27 @@
+{
+  "name": "nuclear-js-boilerplate",
+  "version": "1.0.0",
+  "description": ":checkmark: nuclearJS :checkmark: immutableJS :checkmark: webpack :checkmark: webpack tree-shaking :checkmark: react :checkmark: react-router :checkmark: `System.import` code chunking on routes :checkmark: es6",
+  "main": "index.js",
+  "dependencies": {
+    "babel-core": "^6.18.2",
+    "babel-loader": "^6.2.8",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-react": "^6.16.0",
+    "immutable-js": "^0.3.1-6",
+    "nuclear-js": "^1.4.0",
+    "nuclear-js-react-addons": "^0.4.1",
+    "react": "^15.4.1",
+    "react-dom": "^15.4.1",
+    "webpack": "^1.13.3",
+    "webpack-dev-server": "^1.16.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "dev": "webpack -d --watch",
+    "build": "webpack -p",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
