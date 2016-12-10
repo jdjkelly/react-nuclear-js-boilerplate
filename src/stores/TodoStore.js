@@ -1,7 +1,7 @@
 // @flow
 
 import { Store, toImmutable } from 'nuclear-js'
-import { ADD_TODO, DELETE_TODO, DO_TODO, UNDO_TODO } from 'modules/todos/actionTypes'
+import actions from 'modules/todos/actionTypes'
 
 export default Store({
     getInitialState() {
@@ -14,20 +14,20 @@ export default Store({
     },
 
     initialize(): void {
-        this.on(ADD_TODO, addTodo)
-        this.on(DELETE_TODO, removeTodo)
-        this.on(DO_TODO, doTodo)
-        this.on(UNDO_TODO, undoTodo)
+        this.on(actions.ADD_TODO, addTodo)
+        this.on(actions.DELETE_TODO, removeTodo)
+        this.on(actions.DO_TODO, doTodo)
+        this.on(actions.UNDO_TODO, undoTodo)
     }
 })
 
 function addTodo(state, { todo }) {
-    return state.push(todo)
+    return state.push(toImmutable(todo))
 }
 
 function removeTodo(state, { todo }) {
-    let keyOf;
-    if (keyOf = state.keyOf(todo)) {
+    const keyOf = state.keyOf(todo);
+    if (keyOf !== undefined) {
         return state.delete(keyOf);
     } else {
         return state;
@@ -35,11 +35,10 @@ function removeTodo(state, { todo }) {
 }
 
 function doTodo(state, { todo }) {
-    let keyOf;
-    if (keyOf = state.keyOf(todo)) {
+    const keyOf = state.keyOf(todo)
+    if (keyOf !== undefined) {
         return state.update(keyOf, (todo) => {
-            todo.done = true;
-            return todo;
+            return todo.set('done', true);
         })
     } else {
         return state;
@@ -47,11 +46,10 @@ function doTodo(state, { todo }) {
 }
 
 function undoTodo(state, { todo }) {
-    let keyOf;
-    if (keyOf = state.keyOf(todo)) {
+    const keyOf = state.keyOf(todo)
+    if (keyOf !== undefined) {
         return state.update(keyOf, (todo) => {
-            todo.done = false;
-            return todo;
+            return todo.set('done', false)
         })
     } else {
         return state;

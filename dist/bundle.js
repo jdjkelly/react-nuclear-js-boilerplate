@@ -29210,27 +29210,105 @@
 	    function Todos(props) {
 	        _classCallCheck(this, Todos);
 	
-	        return _possibleConstructorReturn(this, (Todos.__proto__ || Object.getPrototypeOf(Todos)).call(this, props));
+	        var _this = _possibleConstructorReturn(this, (Todos.__proto__ || Object.getPrototypeOf(Todos)).call(this, props));
+	
+	        _this.handleChange = function (event) {
+	            _this.setState({ newTodo: event.target.value });
+	        };
+	
+	        _this.handleSubmit = function (event) {
+	            event.preventDefault();
+	            if (_this.state.newTodo.length === 0) return;
+	            _actions2.default.addTodo({ title: _this.state.newTodo, done: false });
+	            _this.setState({ newTodo: '' });
+	        };
+	
+	        _this.state = { newTodo: '' };
+	        return _this;
 	    }
 	
 	    _createClass(Todos, [{
+	        key: 'toggleTodo',
+	        value: function toggleTodo(todo) {
+	            if (todo.get('done')) {
+	                _actions2.default.undoTodo(todo);
+	            } else {
+	                _actions2.default.doTodo(todo);
+	            }
+	        }
+	    }, {
+	        key: 'deleteTodo',
+	        value: function deleteTodo(todo) {
+	            _actions2.default.deleteTodo(todo);
+	        }
+	    }, {
 	        key: 'render',
 	        value: function render() {
+	            var _this2 = this;
+	
 	            var todos = this.props.todos;
 	
 	
 	            return _react2.default.createElement(
-	                'ul',
+	                'section',
 	                null,
-	                todos.map(function (todo, index) {
-	                    return _react2.default.createElement(
+	                _react2.default.createElement(
+	                    'h2',
+	                    null,
+	                    'Al Todos'
+	                ),
+	                _react2.default.createElement(
+	                    'ul',
+	                    null,
+	                    _react2.default.createElement(
 	                        'li',
-	                        { key: index },
-	                        todo.get('title'),
-	                        ' | ',
-	                        todo.get('done').toString()
-	                    );
-	                }).toList()
+	                        null,
+	                        _react2.default.createElement(
+	                            'a',
+	                            { href: '/todo' },
+	                            'Todo'
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'li',
+	                        null,
+	                        _react2.default.createElement(
+	                            'a',
+	                            { href: '/done' },
+	                            'Done'
+	                        )
+	                    )
+	                ),
+	                _react2.default.createElement(
+	                    'form',
+	                    { onSubmit: this.handleSubmit },
+	                    _react2.default.createElement('input', { type: 'text', value: this.state.newTodo, onChange: this.handleChange })
+	                ),
+	                _react2.default.createElement(
+	                    'ul',
+	                    null,
+	                    todos.map(function (todo, index) {
+	                        return _react2.default.createElement(
+	                            'li',
+	                            { key: index, onClick: function onClick() {
+	                                    return _this2.toggleTodo(todo);
+	                                } },
+	                            todo.get('done') ? _react2.default.createElement(
+	                                'strike',
+	                                null,
+	                                todo.get('title')
+	                            ) : todo.get('title'),
+	                            ' | ',
+	                            _react2.default.createElement(
+	                                'a',
+	                                { href: '#', onClick: function onClick(event) {
+	                                        event.stopPropagation();_this2.deleteTodo(todo);
+	                                    } },
+	                                'del'
+	                            )
+	                        );
+	                    }).toList()
+	                )
 	            );
 	        }
 	    }]);
@@ -29300,16 +29378,16 @@
 	
 	exports.default = {
 	    addTodo: function addTodo(todo) {
-	        _reactor2.default.dispatch(ADD_TODO, { todo: todo });
+	        _reactor2.default.dispatch(_actionTypes2.default.ADD_TODO, { todo: todo });
 	    },
-	    deleteDelete: function deleteDelete(todo) {
-	        _reactor2.default.dispatch(DELETE_TODO, { todo: todo });
+	    deleteTodo: function deleteTodo(todo) {
+	        _reactor2.default.dispatch(_actionTypes2.default.DELETE_TODO, { todo: todo });
 	    },
 	    doTodo: function doTodo(todo) {
-	        _reactor2.default.dispatch(DO_TODO, { todo: todo });
+	        _reactor2.default.dispatch(_actionTypes2.default.DO_TODO, { todo: todo });
 	    },
 	    undoTodo: function undoTodo(todo) {
-	        _reactor2.default.dispatc(DO_TODO, { todo: todo });
+	        _reactor2.default.dispatch(_actionTypes2.default.UNDO_TODO, { todo: todo });
 	    }
 	};
 
@@ -29908,6 +29986,10 @@
 	
 	var _actionTypes = __webpack_require__(/*! modules/todos/actionTypes */ 184);
 	
+	var _actionTypes2 = _interopRequireDefault(_actionTypes);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
 	exports.default = (0, _nuclearJs.Store)({
 	    getInitialState: function getInitialState() {
 	        return (0, _nuclearJs.toImmutable)([{
@@ -29916,10 +29998,10 @@
 	        }]);
 	    },
 	    initialize: function initialize() {
-	        this.on(_actionTypes.ADD_TODO, addTodo);
-	        this.on(_actionTypes.DELETE_TODO, removeTodo);
-	        this.on(_actionTypes.DO_TODO, doTodo);
-	        this.on(_actionTypes.UNDO_TODO, undoTodo);
+	        this.on(_actionTypes2.default.ADD_TODO, addTodo);
+	        this.on(_actionTypes2.default.DELETE_TODO, removeTodo);
+	        this.on(_actionTypes2.default.DO_TODO, doTodo);
+	        this.on(_actionTypes2.default.UNDO_TODO, undoTodo);
 	    }
 	});
 	
@@ -29927,14 +30009,14 @@
 	function addTodo(state, _ref) {
 	    var todo = _ref.todo;
 	
-	    return state.push(todo);
+	    return state.push((0, _nuclearJs.toImmutable)(todo));
 	}
 	
 	function removeTodo(state, _ref2) {
 	    var todo = _ref2.todo;
 	
-	    var keyOf = void 0;
-	    if (keyOf = state.keyOf(todo)) {
+	    var keyOf = state.keyOf(todo);
+	    if (keyOf !== undefined) {
 	        return state.delete(keyOf);
 	    } else {
 	        return state;
@@ -29944,11 +30026,10 @@
 	function doTodo(state, _ref3) {
 	    var todo = _ref3.todo;
 	
-	    var keyOf = void 0;
-	    if (keyOf = state.keyOf(todo)) {
+	    var keyOf = state.keyOf(todo);
+	    if (keyOf !== undefined) {
 	        return state.update(keyOf, function (todo) {
-	            todo.done = true;
-	            return todo;
+	            return todo.set('done', true);
 	        });
 	    } else {
 	        return state;
@@ -29958,11 +30039,10 @@
 	function undoTodo(state, _ref4) {
 	    var todo = _ref4.todo;
 	
-	    var keyOf = void 0;
-	    if (keyOf = state.keyOf(todo)) {
+	    var keyOf = state.keyOf(todo);
+	    if (keyOf !== undefined) {
 	        return state.update(keyOf, function (todo) {
-	            todo.done = false;
-	            return todo;
+	            return todo.set('done', false);
 	        });
 	    } else {
 	        return state;
