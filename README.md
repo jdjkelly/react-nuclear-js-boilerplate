@@ -7,7 +7,7 @@
 - ✅ [Webpack](https://webpack.github.io/)
 - ✅ [Babel6](http://babeljs.io/)
 - ✘ [ESlint](http://eslint.org/)
-- ✘ [Flow](https://flowtype.org)
+- ✅ [Flow](https://flowtype.org)
 - ✘ [React-Router](https://github.com/rackt/react-router) 
 
 #### Key concepts
