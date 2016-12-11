@@ -10,17 +10,17 @@ module.exports = {
     },
 
     output: {
-        path: './dist',
+        path: APP_DIR,
         filename: '[name].js'
     },
 
     module: {
-        loaders: [
+        rules: [
             {
                 test: /\.js$/,
                 loader: 'babel-loader',
                 exclude: /node_modules/,
-                query: {
+                options: {
                     cacheDirectory: '/tmp/',
                     presets: ['es2015', 'react', 'stage-0']
                 }
@@ -30,9 +30,16 @@ module.exports = {
 
     // @TODO webpack 2.0 path resolver config changes
     resolve: {
-        root: [
-            path.resolve('./src')
+        modules: [
+            BUILD_DIR,
+            "node_modules"
         ]
-    }
+    },
 
+    devServer: {
+        contentBase: APP_DIR,
+        compress: true,
+        port: 9000,
+        historyApiFallback: true
+    }
 }

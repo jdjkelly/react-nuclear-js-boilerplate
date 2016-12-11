@@ -7,21 +7,9 @@ import { connect } from 'nuclear-js-react-addons'
 import { Link } from 'react-router'
 import Nav from 'components/nav'
 
-class Todos extends React.Component {
+class Todo extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {newTodo: ''};
-    }
-
-    handleChange = (event) => {
-        this.setState({newTodo: event.target.value});
-    }
-
-    handleSubmit = (event) => {
-        event.preventDefault();
-        if (this.state.newTodo.length === 0) return
-        actions.addTodo({title: this.state.newTodo, done: false})
-        this.setState({newTodo: ''})
     }
 
     toggleTodo(todo) {
@@ -37,17 +25,14 @@ class Todos extends React.Component {
     }
 
     render() {
-        const { todos } = this.props
+        const { todo } = this.props
 
         return (
             <section>
-                <h2>All Todos</h2>
-                <Nav/>
-                <form onSubmit={this.handleSubmit}>
-                    <input type="text" value={this.state.newTodo} onChange={this.handleChange}/>
-                </form>
+                <h2>Todo</h2>
+                <Nav />
                 <ul>
-                    {todos.map((todo, index) => {
+                    {todo.map((todo, index) => {
                         return <li key={index} onClick={() => this.toggleTodo(todo)}>{todo.get('done') ? (<strike>{todo.get('title')}</strike>) : todo.get('title')} | <a href="#" onClick={(event) => { event.stopPropagation(); this.deleteTodo(todo)}}>del</a></li>
                     }).toList()}
                 </ul>
@@ -58,9 +43,9 @@ class Todos extends React.Component {
 
 function mapStateToProps(props) {
     return {
-        todos: getters.todos
+        todo: getters.todo
     }
 }
 
-const ConnectedTodos = connect(mapStateToProps)(Todos)
-export default ConnectedTodos
+const ConnectedTodo = connect(mapStateToProps)(Todo)
+export default ConnectedTodo
