@@ -28,7 +28,6 @@ module.exports = {
         ]
     },
 
-    // @TODO webpack 2.0 path resolver config changes
     resolve: {
         modules: [
             BUILD_DIR,
@@ -40,6 +39,7 @@ module.exports = {
         contentBase: APP_DIR,
         compress: true,
         port: 9000,
-        historyApiFallback: true
+        historyApiFallback: true,
+        stats: { colors: true }
     }
 }
