@@ -8,7 +8,7 @@
 - ✅ [Babel6](http://babeljs.io/)
 - ✘ [ESlint](http://eslint.org/)
 - ✅ [Flow](https://flowtype.org)
-- ✘ [React-Router](https://github.com/rackt/react-router)
+- ✅ [React-Router](https://github.com/rackt/react-router)
 
 #### Key concepts
 - ✅ ES6 everywhere in `src/`
