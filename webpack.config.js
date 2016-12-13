@@ -6,7 +6,7 @@ const APP_DIR = path.resolve(__dirname, 'dist');
 
 module.exports = {
     entry: {
-        bundle: `${BUILD_DIR}/main.js`
+		bundle: ['main']
     },
 
     output: {
